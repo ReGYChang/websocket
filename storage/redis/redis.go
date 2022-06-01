@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"errors"
 	"fmt"
 	redisClient "github.com/gomodule/redigo/redis"
 	"log"
@@ -42,4 +43,18 @@ func (r *redis) Save(v interface{}) error {
 	}
 
 	return nil
+}
+
+func (r *redis) Load() (string, error) {
+	conn := r.pool.Get()
+	defer conn.Close()
+
+	v, err := redisClient.String(conn.Do("GET", "streams=btcusdt@aggTrade"))
+	if err != nil {
+		return "", err
+	} else if len(v) == 0 {
+		return "", errors.New("data not found")
+	}
+
+	return v, nil
 }

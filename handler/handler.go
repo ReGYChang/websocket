@@ -1,8 +1,10 @@
 package handler
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"net/http"
 	"websocket/storage"
 )
 
@@ -22,10 +24,10 @@ func New(schema string, host string, storage storage.Service) *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	//h := handler{schema, host, storage}
+	h := handler{schema, host, storage}
+	r.GET("/load", responseHandler(h.getLastTrade))
 	//r.POST("/encode", responseHandler(h.encode))
 	//r.GET("/:shortLink", h.redirect)
-	//r.GET("/info/:shortLink", responseHandler(h.decode))
 
 	return r
 }
@@ -41,4 +43,13 @@ func responseHandler(h func(ctx *gin.Context) (interface{}, int, error)) gin.Han
 			log.Printf("could not encode response to output: %v", err)
 		}
 	}
+}
+
+func (h handler) getLastTrade(ctx *gin.Context) (interface{}, int, error) {
+	model, err := h.storage.Load()
+	if err != nil {
+		return nil, http.StatusNotFound, fmt.Errorf("URL not found")
+	}
+
+	return model, http.StatusOK, nil
 }

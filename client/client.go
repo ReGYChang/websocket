@@ -27,10 +27,7 @@ func AggTrade(storage storage.Service) {
 	defer conn.Close(websocket.StatusInternalError, "Internal error!")
 
 	ctx = context.Background()
-	i := 0
 	for {
-		i++
-		fmt.Println(i)
 		var message model.StreamMsg
 		err = wsjson.Read(ctx, conn, &message)
 		if err != nil {
