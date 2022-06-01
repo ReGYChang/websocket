@@ -26,8 +26,6 @@ func New(schema string, host string, storage storage.Service) *gin.Engine {
 
 	h := handler{schema, host, storage}
 	r.GET("/load", responseHandler(h.getLastTrade))
-	//r.POST("/encode", responseHandler(h.encode))
-	//r.GET("/:shortLink", h.redirect)
 
 	return r
 }

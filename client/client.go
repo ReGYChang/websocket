@@ -16,7 +16,6 @@ import (
 func AggTrade(storage storage.Service) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
-	//ws := global.AppSetting.WebSocketAddr + "?streams=" + global.AppSetting.ExchangeClass + "@aggTrade"
 	ws := "wss://stream.yshyqxx.com/stream?streams=btcusdt@aggTrade"
 	fmt.Printf("websocket: %#v\n", ws)
 	conn, _, err := websocket.Dial(ctx, ws, nil)
