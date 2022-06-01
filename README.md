@@ -1,6 +1,6 @@
 # websocket
 
-- ✅ Get stream aggtrade data from websocket API
+- ✅ Get stream aggtrade data from [websocket API](https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md)
 - ✅ Gin HTTP Server
 - ✅ Gin API to get last trade infomation
 
