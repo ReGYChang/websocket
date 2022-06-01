@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	cfg, err := config.FromFile("./config.json")
+	cfg, err := config.FromFile("config/config.json")
 	if err != nil {
 		log.Fatal(err)
 	}
